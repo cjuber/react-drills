@@ -1,18 +1,54 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import Todo from './todo'
+import './App.css'
 
 class App extends Component {
+
+      constructor(){
+          super()
+          this.state = {
+            todoArr: [],
+            input:''
+
+          }
+
+      }
+ 
+      newInput = (event) =>{
+
+        this.setState({
+
+          input: event.target.value
+
+        })
+
+      }
+
+      addArr = ()=> {
+
+        this.setState({
+
+          todoArr: [...this.state.todoArr, this.state.input],
+          input:''
+        })
+      }
+
   render() {
+    console.log(this.todoArr)
+    console.log(this.input)
+    let todoArr =this.state.todoArr.map((todo, i) =>{
+return <Todo key={i} task={todo} />
+
+
+    })
+    
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <input placeholder="New Task" onChange={this.newInput}/>
+        <button onClick={this.addArr}>Add</button>
+       
+
+      {todoArr}
       </div>
     );
   }
